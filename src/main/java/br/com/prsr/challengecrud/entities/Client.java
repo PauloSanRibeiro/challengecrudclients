@@ -21,10 +21,6 @@ public class Client {
 	private LocalDate birthDate;
 	private Integer children;
 
-	public Client() {
-
-	}
-
 	public Client(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
 
 		this.id = id;
