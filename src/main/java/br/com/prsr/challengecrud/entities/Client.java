@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "TBCLIENT")
@@ -15,9 +17,13 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank
 	private String name;
 	private String cpf;
 	private Double income;
+
+	@PastOrPresent(message = "[Atenção] A data de nascimento não pode ser futura!")
 	private LocalDate birthDate;
 	private Integer children;
 
