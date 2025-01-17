@@ -1,14 +1,14 @@
 package br.com.prsr.challengecrud.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "TBCLIENT")
@@ -17,15 +17,15 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@NotBlank
 	private String name;
 	private String cpf;
 	private Double income;
-
-	@PastOrPresent(message = "[Atenção] A data de nascimento não pode ser futura!")
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private LocalDate birthDate;
 	private Integer children;
+
+	public Client() {
+	}
 
 	public Client(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
 
@@ -83,6 +83,23 @@ public class Client {
 
 	public void setChildren(Integer children) {
 		this.children = children;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }
